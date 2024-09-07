@@ -22,7 +22,6 @@ function App() {
   };
 
   const downloadQrCode = async () => {
-    console.log("pobieram");
     try {
       const response = await fetch(qrImgUrl);
       if (!response.ok) {
@@ -62,7 +61,7 @@ function App() {
   };
 
   return (
-    <div className="flex h-screen w-screen justify-center items-center bg-background-gradient">
+    <div className="flex md:h-screen md:w-screen justify-center items-center bg-background-gradient">
       <MainBox>
         <Alert
           open={showAlert}
