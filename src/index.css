@@ -8,3 +8,21 @@
   box-sizing: border-box;
   font-family: "K2D", sans-serif;
 }
+@layer components {
+  .download-card {
+    @apply absolute bottom-0 left-0 w-full h-0 backdrop-blur-sm bg-black/30;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .qr-box:hover > .download-card {
+    @apply h-full;
+  }
+
+  .download-card > * {
+    @apply hidden;
+  }
+
+  .qr-box:hover > .download-card > * {
+    @apply flex;
+  }
+}

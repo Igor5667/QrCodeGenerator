@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { FaArrowDown } from "react-icons/fa6";
+import { IoMdOpen } from "react-icons/io";
+import { MdOutlineFileDownload } from "react-icons/md";
 
 function App() {
   const [qrImg, setQrImg] = useState<string>("");
@@ -33,8 +35,20 @@ function App() {
           GENERATE
           <FaArrowDown />
         </button>
-        <div className="flex-1 aspect-square border rounded-2xl p-5 mt-5 relative">
-          {qrImg && <img src={qrImg} alt="qrCode" width="100%" />}
+        <div className="qr-box flex-1 aspect-square border rounded-2xl p-5 mt-5 relative overflow-hidden">
+          {qrImg && (
+            <>
+              <img src={qrImg} alt="qrCode" width="100%" />
+              <div className="download-card flex items-center justify-center gap-5">
+                <button className="w-1/4 bg-white text-black h-1/4 p-4 rounded-3xl border border-black hover:bg-gray-200">
+                  <MdOutlineFileDownload className="w-full h-full" />
+                </button>
+                <button className="w-1/4 bg-white text-black h-1/4 p-4 rounded-3xl border border-black hover:bg-gray-200">
+                  <IoMdOpen className="w-full h-full" />
+                </button>
+              </div>
+            </>
+          )}
         </div>
       </div>
     </div>
