@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { FaArrowDown } from "react-icons/fa6";
 
 function App() {
   const [qrImg, setQrImg] = useState<string>("");
@@ -16,7 +17,7 @@ function App() {
     <div className="flex h-screen w-screen justify-center items-center bg-background-gradient">
       <div className="w-2/3 h-[90%] flex flex-col items-center gap-5 bg-background-card-gradient text-white border border-slate-400 rounded-3xl py-10 shadow-xl">
         <h1 className="text-3xl mb-6 w-[90%] text-center">
-          Lets make some QR Codes !
+          Let's make some QR Codes!
         </h1>
         <input
           value={inputValue}
@@ -27,11 +28,12 @@ function App() {
         />
         <button
           onClick={getQrCode}
-          className="border py-2 px-10 rounded-2xl bg-white text-black"
+          className="border py-2 px-10 rounded-2xl bg-white text-black flex items-center gap-3"
         >
           GENERATE
+          <FaArrowDown />
         </button>
-        <div className="flex-1 aspect-square border rounded-2xl p-5 mt-5">
+        <div className="flex-1 aspect-square border rounded-2xl p-5 mt-5 relative">
           {qrImg && <img src={qrImg} alt="qrCode" width="100%" />}
         </div>
       </div>
