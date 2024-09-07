@@ -2,6 +2,7 @@ import { useState } from "react";
 import { FaArrowDown } from "react-icons/fa6";
 import { IoMdOpen } from "react-icons/io";
 import { MdOutlineFileDownload } from "react-icons/md";
+import Button from "./components/Button";
 
 function App() {
   const [qrImg, setQrImg] = useState<string>("");
@@ -40,12 +41,12 @@ function App() {
             <>
               <img src={qrImg} alt="qrCode" width="100%" />
               <div className="download-card flex items-center justify-center gap-5">
-                <button className="w-1/4 bg-white text-black h-1/4 p-4 rounded-3xl border border-black hover:bg-gray-200">
+                <Button>
                   <MdOutlineFileDownload className="w-full h-full" />
-                </button>
-                <button className="w-1/4 bg-white text-black h-1/4 p-4 rounded-3xl border border-black hover:bg-gray-200">
+                </Button>
+                <Button>
                   <IoMdOpen className="w-full h-full" />
-                </button>
+                </Button>
               </div>
             </>
           )}
