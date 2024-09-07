@@ -5,15 +5,37 @@ import { MdOutlineFileDownload } from "react-icons/md";
 import Button from "./components/Button";
 
 function App() {
-  const [qrImg, setQrImg] = useState<string>("");
+  const [qrImgUrl, setQrImgUrl] = useState<string>("");
   const [inputValue, setInputValue] = useState<string>("");
 
   const getQrCode = () => {
     let link = inputValue.trim();
     if (link.length < 1) return;
-    setQrImg(
+    setQrImgUrl(
       `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${link}`
     );
+  };
+
+  const downloadQrCode = async () => {
+    console.log("pobieram");
+    try {
+      const response = await fetch(qrImgUrl);
+      if (!response.ok) throw new Error("Błąd sieci");
+      const blob = await response.blob();
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = "qrCode";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(link.href);
+    } catch (error) {
+      console.error("Błąd podczas pobierania obrazka:", error);
+    }
+  };
+
+  const openQrInNewTab = () => {
+    window.open(qrImgUrl);
   };
 
   return (
@@ -37,14 +59,14 @@ function App() {
           <FaArrowDown />
         </button>
         <div className="qr-box flex-1 aspect-square border rounded-2xl p-5 mt-5 relative overflow-hidden">
-          {qrImg && (
+          {qrImgUrl && (
             <>
-              <img src={qrImg} alt="qrCode" width="100%" />
+              <img src={qrImgUrl} alt="qrCode" width="100%" />
               <div className="download-card flex items-center justify-center gap-5">
-                <Button>
+                <Button onClick={downloadQrCode}>
                   <MdOutlineFileDownload className="w-full h-full" />
                 </Button>
-                <Button>
+                <Button onClick={openQrInNewTab}>
                   <IoMdOpen className="w-full h-full" />
                 </Button>
               </div>
