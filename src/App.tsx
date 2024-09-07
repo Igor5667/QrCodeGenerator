@@ -1,18 +1,18 @@
 import { useState } from "react";
-import { FaArrowDown } from "react-icons/fa6";
-import { IoMdOpen } from "react-icons/io";
-import { MdOutlineFileDownload } from "react-icons/md";
-import Button from "./components/Button";
 import Input from "./components/Input";
 import ButtonGenerate from "./components/ButtonGenerate";
 import QrBox from "./components/QrBox";
 import Header from "./components/Header";
 import MainBox from "./components/MainBox";
+import { Alert } from "@material-tailwind/react";
 
 function App() {
   const [qrImgUrl, setQrImgUrl] = useState<string>("");
   const [inputValue, setInputValue] = useState<string>("");
+  const [showAlert, setShowAlert] = useState<boolean>(false);
+  const [alertText, setAlertText] = useState<string>("");
 
+  //getting qr code by setting src atribute of img
   const getQrCode = () => {
     let link = inputValue.trim();
     if (link.length < 1) return;
@@ -25,7 +25,10 @@ function App() {
     console.log("pobieram");
     try {
       const response = await fetch(qrImgUrl);
-      if (!response.ok) throw new Error("Błąd sieci");
+      if (!response.ok) {
+        handleAlert("Conection error");
+        throw new Error("Conection error");
+      }
       const blob = await response.blob();
       const link = document.createElement("a");
       link.href = URL.createObjectURL(blob);
@@ -35,8 +38,23 @@ function App() {
       document.body.removeChild(link);
       URL.revokeObjectURL(link.href);
     } catch (error) {
-      console.error("Błąd podczas pobierania obrazka:", error);
+      handleAlert("Error while downloading QR code");
+      console.error("Error while downloading QR code:", error);
     }
+  };
+
+  let alertInterval: number | undefined;
+  const handleAlert = (text: string) => {
+    setAlertText(text);
+    setShowAlert(true);
+
+    //if previous alert exists, clear it
+    if (alertInterval) clearInterval(alertInterval);
+
+    alertInterval = setInterval(() => {
+      setShowAlert(false);
+      clearInterval(alertInterval);
+    }, 3000);
   };
 
   const openQrInNewTab = () => {
@@ -46,6 +64,13 @@ function App() {
   return (
     <div className="flex h-screen w-screen justify-center items-center bg-background-gradient">
       <MainBox>
+        <Alert
+          open={showAlert}
+          className="absolute w-min whitespace-nowrap top-5"
+          color="red"
+        >
+          {alertText}
+        </Alert>
         <Header />
         <Input inputValue={inputValue} setInputValue={setInputValue} />
         <ButtonGenerate onClick={getQrCode} />
