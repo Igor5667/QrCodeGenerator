@@ -62,7 +62,7 @@ function App() {
   };
 
   return (
-    <div className="flex md:h-screen md:w-screen justify-center items-center bg-background-gradient">
+    <div className="flex h-svh md:h-screen md:w-screen justify-center items-center bg-background-gradient">
       <MainBox>
         <Alert
           open={showAlert}
