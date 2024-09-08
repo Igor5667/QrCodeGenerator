@@ -11,7 +11,7 @@ interface QrBoxProps {
 function QrBox({ qrImgUrl, downloadQrCode, openQrInNewTab }: QrBoxProps) {
   return (
     <div
-      className="w-[90%] mt-10 qr-box md:flex-1 aspect-square border rounded-2xl p-5 md:mt-5
+      className="w-[90%] md:w-auto md:w- mt-10 qr-box md:flex-1 aspect-square border rounded-2xl p-5 md:mt-5
      relative overflow-hidden"
     >
       {qrImgUrl && (
