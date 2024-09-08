@@ -15,7 +15,7 @@
   }
 
   .qr-box:hover > .download-card {
-    @apply h-full;
+    @apply md:h-full;
   }
 
   .download-card > * {
@@ -23,6 +23,6 @@
   }
 
   .qr-box:hover > .download-card > * {
-    @apply flex;
+    @apply md:flex;
   }
 }

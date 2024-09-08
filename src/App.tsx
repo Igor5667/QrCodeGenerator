@@ -5,6 +5,7 @@ import QrBox from "./components/QrBox";
 import Header from "./components/Header";
 import MainBox from "./components/MainBox";
 import { Alert } from "@material-tailwind/react";
+import PhoneButtons from "./components/PhoneButtons";
 
 function App() {
   const [qrImgUrl, setQrImgUrl] = useState<string>("");
@@ -78,6 +79,13 @@ function App() {
           downloadQrCode={downloadQrCode}
           openQrInNewTab={openQrInNewTab}
         />
+        {qrImgUrl && (
+          <PhoneButtons
+            downloadQrCode={downloadQrCode}
+            openQrInNewTab={openQrInNewTab}
+            className="md:hidden"
+          />
+        )}
       </MainBox>
     </div>
   );
